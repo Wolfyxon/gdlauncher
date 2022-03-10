@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://GDLAUNCHER_FILES/scrips/gdLauncherPanel.gd" type="Script" id=1]
 [ext_resource path="res://GDLAUNCHER_FILES/scrips/scriptManager.gd" type="Script" id=2]
@@ -89,6 +89,11 @@ tracks/1/keys = {
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.203922, 0.180392, 0.372549, 1 )
 
+[sub_resource type="StyleBoxFlat" id=6]
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.207843, 0.207843, 0.207843, 1 )
+
 [node name="gdLauncherPanel" type="Node2D"]
 pause_mode = 2
 position = Vector2( 525, 267 )
@@ -133,6 +138,7 @@ __meta__ = {
 }
 
 [node name="Main" type="Tabs" parent="Panel"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 24.0
@@ -274,10 +280,112 @@ __meta__ = {
 }
 
 [node name="script injection" type="Tabs" parent="Panel"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 24.0
+
+[node name="scripts" type="ScrollContainer" parent="Panel/script injection"]
+margin_left = 7.0
+margin_top = 78.0
+margin_right = 965.0
+margin_bottom = 536.0
+custom_styles/bg = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/script injection/scripts"]
+margin_right = 200.0
+margin_bottom = 20.0
+
+[node name="script_template" type="Control" parent="Panel/script injection/scripts/VBoxContainer"]
+margin_right = 200.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 200, 20 )
+
+[node name="Label" type="Label" parent="Panel/script injection/scripts/VBoxContainer/script_template"]
+margin_left = 4.0
+margin_top = 2.0
+margin_right = 972.0
+margin_bottom = 21.0
+custom_styles/normal = SubResource( 5 )
+text = "Path/to/Script.gd"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btn_remove" type="Button" parent="Panel/script injection/scripts/VBoxContainer/script_template"]
+self_modulate = Color( 1, 0, 0, 1 )
+margin_left = 937.0
+margin_top = 1.0
+margin_right = 957.0
+margin_bottom = 21.0
+text = "X"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="info_txt" type="Label" parent="Panel/script injection"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "These scripts will be automatically loaded into scene, function loops are supported.
+WARNING: High amount of scripts may lag the game!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="script_add" type="Control" parent="Panel/script injection"]
+margin_left = 445.0
+margin_top = 10.0
+margin_right = 485.0
+margin_bottom = 50.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="path" type="LineEdit" parent="Panel/script injection/script_add"]
+margin_left = -435.0
+margin_top = 40.0
+margin_right = 391.0
+margin_bottom = 64.0
+placeholder_text = "C:/path/to/script.gd"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btn_browse" type="Button" parent="Panel/script injection/script_add"]
+margin_left = 396.0
+margin_top = 41.0
+margin_right = 455.0
+margin_bottom = 63.0
+text = "Browse"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btn_add" type="Button" parent="Panel/script injection/script_add"]
+self_modulate = Color( 0.101961, 1, 0, 1 )
+margin_left = 459.0
+margin_top = 41.0
+margin_right = 518.0
+margin_bottom = 63.0
+text = "Add"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ch_enable_loops" type="CheckButton" parent="Panel/script injection"]
+margin_left = 756.0
+margin_top = 3.0
+margin_right = 973.0
+margin_bottom = 43.0
+pressed = true
+text = "Enable function loops"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="scriptInstances" type="Node" parent="."]
 script = ExtResource( 2 )

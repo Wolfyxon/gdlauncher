@@ -79,6 +79,7 @@ margin_left = -164.0
 margin_top = 48.0
 margin_right = 154.0
 margin_bottom = 72.0
+placeholder_text = "C:/path/to/game.pck"
 __meta__ = {
 "_edit_use_anchors_": false
 }
