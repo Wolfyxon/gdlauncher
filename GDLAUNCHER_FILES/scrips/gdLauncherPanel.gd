@@ -19,6 +19,7 @@ func _physics_process(delta):
 	if Input.is_key_pressed(KEY_ESCAPE):
 		close()
 		
+		
 func open():
 	if not(isOpen and $AnimationPlayer.is_playing()):
 		$outsidePanelClose.visible = true
