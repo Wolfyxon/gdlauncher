@@ -1,4 +1,4 @@
-# GdLauncher
+# GdLauncher (work in progress)
 A simple tool for modding Godot games.
 ### Features
 - debugging
