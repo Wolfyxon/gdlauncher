@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://GDLAUNCHER_FILES/scrips/gdLauncherPanel.gd" type="Script" id=1]
 [ext_resource path="res://GDLAUNCHER_FILES/scrips/scriptManager.gd" type="Script" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -97,7 +98,7 @@ bg_color = Color( 0.207843, 0.207843, 0.207843, 1 )
 
 [node name="gdLauncherPanel" type="CanvasLayer"]
 pause_mode = 2
-layer = 100
+layer = 128
 script = ExtResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -120,9 +121,6 @@ margin_left = -6.0
 margin_top = 5.0
 margin_right = 1019.0
 margin_bottom = 606.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Panel" type="TabContainer" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -155,9 +153,6 @@ margin_bottom = 39.0
 bbcode_enabled = true
 bbcode_text = "[center][color=red]This a tool for modding, not cheating. Please do not use this to cheat in any game.[/color][/center]"
 text = "This a tool for modding, not cheating. Please do not use this to cheat in any game."
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="switches" type="GridContainer" parent="Panel/Main"]
 margin_left = 39.0
@@ -165,9 +160,6 @@ margin_top = 46.0
 margin_right = 890.0
 margin_bottom = 76.0
 columns = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ch_paused" type="CheckButton" parent="Panel/Main/switches"]
 margin_right = 157.0
@@ -200,26 +192,44 @@ margin_bottom = 30.0
 rect_min_size = Vector2( 160, 30 )
 text = "Open executable directory"
 
-[node name="btn_exit" type="Button" parent="Panel/Main/buttons"]
+[node name="btn_appdata5" type="Button" parent="Panel/Main/buttons"]
 margin_left = 356.0
-margin_right = 516.0
+margin_right = 522.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 160, 30 )
+text = "Open app data directory"
+
+[node name="btn_exit" type="Button" parent="Panel/Main/buttons"]
+self_modulate = Color( 1, 0, 0, 1 )
+margin_left = 526.0
+margin_right = 686.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 160, 30 )
 text = "Exit program"
 
 [node name="btn_kill" type="Button" parent="Panel/Main/buttons"]
-margin_left = 520.0
-margin_right = 680.0
+self_modulate = Color( 1, 0, 0, 1 )
+margin_left = 690.0
+margin_right = 850.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 160, 30 )
 text = "Kill process"
 
-[node name="btn_appdata5" type="Button" parent="Panel/Main/buttons"]
-margin_left = 684.0
-margin_right = 850.0
-margin_bottom = 30.0
+[node name="btn_change_scene" type="Button" parent="Panel/Main/buttons"]
+margin_top = 34.0
+margin_right = 166.0
+margin_bottom = 64.0
 rect_min_size = Vector2( 160, 30 )
-text = "Open app data directory"
+text = "Change scene"
+
+[node name="scene_selection" type="FileDialog" parent="Panel/Main/buttons/btn_change_scene"]
+margin_left = -29.0
+margin_top = -106.0
+margin_right = 927.0
+margin_bottom = 390.0
+window_title = "Select a scene"
+mode = 0
+filters = PoolStringArray( "*.tscn" )
 
 [node name="eval" type="Tabs" parent="Panel"]
 visible = false
@@ -231,24 +241,22 @@ margin_top = 24.0
 margin_left = 8.0
 margin_top = 6.0
 margin_right = 967.0
-margin_bottom = 507.0
-text = "#WARNING: Every error you make will crash the game, be careful
-# ! THIS IS A MODDING UTILITY, DO NOT USE IT TO CHEAT !
+margin_bottom = 469.0
+text = "# ! THIS IS A MODDING UTILITY, DO NOT USE IT TO CHEAT !
 
 var game = get_tree().current_scene #This allows you to interact with current scene
 
 func _ready(): #this will run instantly
 	print(\"Hello world\") #if you want to see the prints, go to \"logs\" tab
 	print(\"First object of current scene is '\"+game.name+\"' which is a \"+game.get_class())
+	print(\"Here's also a node tree\")
+	game.print_tree_pretty()
 
 #NOTE: _physics_process(delta) and _process(delta) does not work here, if you want to use function loops like that use \"Script injection\"."
 highlight_current_line = true
 syntax_highlighting = true
 show_line_numbers = true
 draw_tabs = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="btn_eval" type="Button" parent="Panel/eval"]
 margin_left = 7.0
@@ -256,9 +264,6 @@ margin_top = 514.0
 margin_right = 478.0
 margin_bottom = 534.0
 text = "EVAL"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="btn_destroy_script" type="Button" parent="Panel/eval"]
 self_modulate = Color( 1, 0, 0, 1 )
@@ -270,6 +275,14 @@ text = "Destroy script"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="error" type="TextEdit" parent="Panel/eval"]
+margin_left = 9.0
+margin_top = 472.0
+margin_right = 967.0
+margin_bottom = 506.0
+text = "No errors detected"
+readonly = true
 
 [node name="script injection" type="Tabs" parent="Panel"]
 visible = false
@@ -410,6 +423,28 @@ margin_top = 24.0
 margin_right = 277.0
 margin_bottom = 539.0
 
+[node name="appInfo" type="Control" parent="Panel/debug info"]
+margin_left = 747.0
+margin_top = 58.0
+margin_right = 787.0
+margin_bottom = 98.0
+
+[node name="icon" type="TextureRect" parent="Panel/debug info/appInfo"]
+margin_left = -64.0
+margin_top = -19.0
+margin_right = 86.0
+margin_bottom = 132.0
+texture = ExtResource( 3 )
+expand = true
+
+[node name="name" type="Label" parent="Panel/debug info/appInfo"]
+margin_left = -187.0
+margin_top = 137.0
+margin_right = 224.0
+margin_bottom = 151.0
+text = "Error getting name"
+align = 1
+
 [node name="scriptInstances" type="Node" parent="."]
 script = ExtResource( 2 )
 
@@ -428,6 +463,8 @@ autostart = true
 [connection signal="pressed" from="Panel/Main/buttons/btn_exedir" to="." method="_on_btn_exedir_pressed"]
 [connection signal="pressed" from="Panel/Main/buttons/btn_exit" to="." method="_on_btn_exit_pressed"]
 [connection signal="pressed" from="Panel/Main/buttons/btn_kill" to="." method="_on_btn_kill_pressed"]
+[connection signal="pressed" from="Panel/Main/buttons/btn_change_scene" to="." method="_on_btn_change_scene_pressed"]
+[connection signal="file_selected" from="Panel/Main/buttons/btn_change_scene/scene_selection" to="." method="_on_scene_selection_file_selected"]
 [connection signal="pressed" from="Panel/eval/btn_eval" to="." method="_on_btn_eval_pressed"]
 [connection signal="pressed" from="Panel/eval/btn_destroy_script" to="." method="_on_btn_destroy_script_pressed"]
 [connection signal="timeout" from="timers/refreshLogs" to="." method="_on_refreshLogs_timeout"]

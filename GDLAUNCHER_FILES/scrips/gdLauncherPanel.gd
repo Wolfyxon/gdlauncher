@@ -1,13 +1,18 @@
 extends CanvasLayer
 
 var isOpen = false
+var threads = []
 
 func _ready():
 	$outsidePanelClose.visible = false
 	print("GDLauncher panel has been added to current scene")
 	$AnimationPlayer.play("first")
+	
+	$"Panel/debug info/appInfo/icon".texture = load(ProjectSettings.get_setting("application/config/icon"))
+	$"Panel/debug info/appInfo/name".text = ProjectSettings.get_setting("application/config/name")
 
 func _physics_process(delta):
+	
 	$Panel/Main/switches/ch_fullscreen.pressed = OS.window_fullscreen
 	if $"Panel/debug info".visible: load_debug_info()
 	
@@ -70,18 +75,26 @@ func _on_outsidePanelClose_pressed():
 	close()
 
 
-func _on_btn_eval_pressed():
-	var gdscript = GDScript.new()
-	var code = $Panel/eval/code.text
 
+func _on_btn_eval_pressed():
+	var th = Thread.new()
+	th.start(self,"eval",$Panel/eval/code.text)
+	threads.append(th)
+
+
+func eval(code):
+	$Panel/eval/error.text = "No errors detected"
+	var gdscript = GDScript.new()
 	gdscript.set_source_code("extends Node\n"+code)
-	gdscript.reload()
-	
-	var n = Node.new()
-	n.name = "TmpEvalScript"
-	$evalScriptInstances.add_child(n)
-	n.set_script(gdscript)
-	n.call("_ready")
+	var err = gdscript.reload() 
+	if err == OK:
+		var n = Node.new()
+		n.name = "TmpEvalScript"
+		$evalScriptInstances.add_child(n)
+		n.set_script(gdscript)
+		n.call("_ready")
+	else:
+		$Panel/eval/error.text = UtilsGd.get_error_name_from_code(err)+" for more details, see logs"
 
 
 
@@ -107,9 +120,20 @@ func _on_btn_exit_pressed():
 func _on_btn_kill_pressed():
 	OS.kill(OS.get_process_id())
 
+func _on_btn_change_scene_pressed():
+	$Panel/Main/buttons/btn_change_scene/scene_selection.popup()
+
+func _on_scene_selection_file_selected(path):
+	var err = get_tree().change_scene(path)
+
 #switches
 func _on_ch_paused_toggled(button_pressed):
 	get_tree().paused = button_pressed
 
 func _on_ch_fullscreen_toggled(button_pressed):
 	OS.window_fullscreen = button_pressed
+
+
+
+
+

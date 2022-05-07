@@ -27,9 +27,6 @@ script = ExtResource( 2 )
 margin_right = 1040.0
 margin_bottom = 613.0
 color = Color( 0.160784, 0.176471, 0.305882, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="upPanel" type="Panel" parent="."]
 margin_right = 1024.0
