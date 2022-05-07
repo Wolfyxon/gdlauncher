@@ -21,6 +21,7 @@ A simple tool for modding Godot games.
 - debugging
 - changing game settings
 - script injection
+- log viewing
 
 ## Get started
 1. Download the latest executable file from releases or run source code in Godot Engine
@@ -29,5 +30,5 @@ A simple tool for modding Godot games.
 ![](https://raw.githubusercontent.com/Wolfyxon/gdlauncher/main/GDLAUNCHER_FILES/textures/screenshots/screenshot1.png)
 4. Click **launch**
 5. Select the first scene of the game (Should be named like Menu, Main)
-6. After the game is launched press `CTR + F12` to open GdLauncher menu.
+6. After the game is launched press `CTR + \` to open GdLauncher menu.
 7. **Have fun =)**
