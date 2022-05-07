@@ -39,7 +39,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -501, -830 ) ]
+"values": [ Vector2( 29, -830 ) ]
 }
 
 [sub_resource type="Animation" id=1]
@@ -83,20 +83,21 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( -501, -830 ), Vector2( -501, -254 ) ]
+"values": [ Vector2( 29, -830 ), Vector2( 29, 14 ) ]
 }
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.203922, 0.180392, 0.372549, 1 )
 
 [sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.160784, 0.141176, 0.447059, 1 )
 
 [sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.207843, 0.207843, 0.207843, 1 )
 
-[node name="gdLauncherPanel" type="Node2D"]
+[node name="gdLauncherPanel" type="CanvasLayer"]
 pause_mode = 2
-position = Vector2( 525, 267 )
+layer = 100
 script = ExtResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -106,36 +107,30 @@ anims/open = SubResource( 4 )
 
 [node name="Label" type="Label" parent="."]
 self_modulate = Color( 1, 1, 1, 0 )
-margin_left = -523.0
-margin_top = 248.0
-margin_right = 499.0
-margin_bottom = 262.0
+margin_left = -3.0
+margin_top = 520.0
+margin_right = 1019.0
+margin_bottom = 534.0
 text = "Press CTR + F12 to open GDLauncher menu"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="outsidePanelClose" type="Button" parent="."]
 self_modulate = Color( 1, 1, 1, 0 )
-margin_left = -526.0
-margin_top = -267.0
-margin_right = 499.0
-margin_bottom = 334.0
+margin_left = -6.0
+margin_top = 5.0
+margin_right = 1019.0
+margin_bottom = 606.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Panel" type="TabContainer" parent="."]
 modulate = Color( 1, 1, 1, 0 )
-margin_left = -501.0
+margin_left = 29.0
 margin_top = -830.0
-margin_right = 473.0
+margin_right = 1003.0
 margin_bottom = -264.0
 custom_styles/panel = SubResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Main" type="Tabs" parent="Panel"]
 visible = false
@@ -179,21 +174,18 @@ margin_right = 157.0
 margin_bottom = 40.0
 text = "Pause game"
 
-[node name="ch_paused2" type="CheckButton" parent="Panel/Main/switches"]
+[node name="ch_fullscreen" type="CheckButton" parent="Panel/Main/switches"]
 margin_left = 161.0
-margin_right = 318.0
+margin_right = 307.0
 margin_bottom = 40.0
-text = "Pause game"
+text = "Fullscreen"
 
 [node name="buttons" type="GridContainer" parent="Panel/Main"]
 margin_left = 39.0
 margin_top = 102.0
-margin_right = 960.0
-margin_bottom = 540.0
+margin_right = 955.0
+margin_bottom = 532.0
 columns = 5
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="btn_appdata" type="Button" parent="Panel/Main/buttons"]
 margin_right = 166.0
@@ -246,8 +238,8 @@ text = "#WARNING: Every error you make will crash the game, be careful
 var game = get_tree().current_scene #This allows you to interact with current scene
 
 func _ready(): #this will run instantly
-	print(\"Hello world\")
-	print(\"First object of current scene is \"+game.name)
+	print(\"Hello world\") #if you want to see the prints, go to \"logs\" tab
+	print(\"First object of current scene is '\"+game.name+\"' which is a \"+game.get_class())
 
 #NOTE: _physics_process(delta) and _process(delta) does not work here, if you want to use function loops like that use \"Script injection\"."
 highlight_current_line = true
@@ -280,6 +272,7 @@ __meta__ = {
 }
 
 [node name="script injection" type="Tabs" parent="Panel"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 24.0
@@ -351,6 +344,8 @@ margin_top = 40.0
 margin_right = 391.0
 margin_bottom = 64.0
 placeholder_text = "C:/path/to/script.gd"
+caret_blink = true
+caret_blink_speed = 0.5
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -387,16 +382,52 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="logs" type="Tabs" parent="Panel"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 24.0
+
+[node name="Label" type="Label" parent="Panel/logs"]
+margin_top = 4.0
+margin_right = 441.0
+margin_bottom = 18.0
+text = "These are logs that are printed on Godot console with print() function"
+
+[node name="console" type="TextEdit" parent="Panel/logs"]
+margin_left = 3.0
+margin_top = 21.0
+margin_right = 966.0
+margin_bottom = 535.0
+readonly = true
+
+[node name="debug info" type="Tabs" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 24.0
+
+[node name="text" type="RichTextLabel" parent="Panel/debug info"]
+margin_right = 277.0
+margin_bottom = 539.0
+
 [node name="scriptInstances" type="Node" parent="."]
 script = ExtResource( 2 )
 
 [node name="evalScriptInstances" type="Node" parent="."]
 
+[node name="timers" type="Node" parent="."]
+
+[node name="refreshLogs" type="Timer" parent="timers"]
+wait_time = 0.5
+autostart = true
+
 [connection signal="pressed" from="outsidePanelClose" to="." method="_on_outsidePanelClose_pressed"]
 [connection signal="toggled" from="Panel/Main/switches/ch_paused" to="." method="_on_ch_paused_toggled"]
+[connection signal="toggled" from="Panel/Main/switches/ch_fullscreen" to="." method="_on_ch_fullscreen_toggled"]
 [connection signal="pressed" from="Panel/Main/buttons/btn_appdata" to="." method="_on_btn_appdata_pressed"]
 [connection signal="pressed" from="Panel/Main/buttons/btn_exedir" to="." method="_on_btn_exedir_pressed"]
 [connection signal="pressed" from="Panel/Main/buttons/btn_exit" to="." method="_on_btn_exit_pressed"]
 [connection signal="pressed" from="Panel/Main/buttons/btn_kill" to="." method="_on_btn_kill_pressed"]
 [connection signal="pressed" from="Panel/eval/btn_eval" to="." method="_on_btn_eval_pressed"]
 [connection signal="pressed" from="Panel/eval/btn_destroy_script" to="." method="_on_btn_destroy_script_pressed"]
+[connection signal="timeout" from="timers/refreshLogs" to="." method="_on_refreshLogs_timeout"]

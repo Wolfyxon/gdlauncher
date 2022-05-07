@@ -12,15 +12,22 @@ config_version=4
 
 config/name="GdLauncher"
 run/main_scene="res://GDLAUNCHER_FILES/scenes/GdLauncherMain.tscn"
+config/use_custom_user_dir=true
 config/icon="res://icon.png"
 
 [autoload]
 
-Global="*res://GDLAUNCHER_FILES/scrips/Global.gd"
+GdLauncherGlobal="*res://GDLAUNCHER_FILES/scrips/Global.gd"
+UtilsGd="*res://GDLAUNCHER_FILES/UtilsGD/UtilsGD.gd"
 
 [display]
 
 window/stretch/mode="2d"
+
+[network]
+
+limits/debugger_stdout/max_chars_per_second=5048
+limits/debugger_stdout/max_messages_per_frame=100
 
 [physics]
 

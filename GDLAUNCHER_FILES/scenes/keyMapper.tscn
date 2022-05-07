@@ -1,0 +1,121 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://GDLAUNCHER_FILES/fonts/arial.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://GDLAUNCHER_FILES/scrips/keyMapper.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0941176, 0.0901961, 0.207843, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 45
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.160784, 0.141176, 0.447059, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0, 0.0627451, 0.298039, 1 )
+
+[node name="main" type="Node"]
+script = ExtResource( 2 )
+
+[node name="background" type="ColorRect" parent="."]
+margin_right = 1040.0
+margin_bottom = 613.0
+color = Color( 0.160784, 0.176471, 0.305882, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="upPanel" type="Panel" parent="."]
+margin_right = 1024.0
+margin_bottom = 52.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="mainTxt" type="Label" parent="upPanel"]
+margin_right = 1026.0
+margin_bottom = 22.0
+custom_fonts/font = SubResource( 2 )
+text = "Keybind mapping"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btn_confirm" type="Button" parent="."]
+self_modulate = Color( 0, 1, 0.0156863, 1 )
+margin_left = 925.0
+margin_top = 561.0
+margin_right = 1020.0
+margin_bottom = 597.0
+text = "Confirm >"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="btn_confirm"]
+margin_left = -896.0
+margin_top = -507.0
+margin_right = 92.0
+margin_bottom = 29.0
+mouse_filter = 2
+window_title = "Are you sure?"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="btn_confirm/ConfirmationDialog"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 980.0
+margin_bottom = 500.0
+text = "Make sure you binded EVERY key, game will extemely lag 
+and print errors or just crash if there's no key binded.
+"
+
+[node name="btn_back" type="Button" parent="."]
+self_modulate = Color( 1, 0, 0, 1 )
+margin_left = 825.0
+margin_top = 561.0
+margin_right = 920.0
+margin_bottom = 597.0
+text = "< Cancel"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="keybinds" type="ScrollContainer" parent="."]
+margin_left = 15.0
+margin_top = 77.0
+margin_right = 1011.0
+margin_bottom = 551.0
+custom_styles/bg = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="keybinds"]
+
+[node name="Label" type="Label" parent="."]
+margin_left = 16.0
+margin_top = 58.0
+margin_right = 1011.0
+margin_bottom = 76.0
+custom_styles/normal = SubResource( 4 )
+text = "Detected keybinds"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="btn_confirm" to="." method="_on_btn_confirm_pressed"]
+[connection signal="confirmed" from="btn_confirm/ConfirmationDialog" to="." method="_on_ConfirmationDialog_confirmed"]
+[connection signal="pressed" from="btn_back" to="." method="_on_btn_back_pressed"]

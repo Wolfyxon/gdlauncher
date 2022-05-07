@@ -54,9 +54,6 @@ margin_left = 503.0
 margin_top = 306.0
 margin_right = 543.0
 margin_bottom = 346.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="FileDialog" type="FileDialog" parent="pckSelect"]
 margin_left = 10.0
@@ -68,8 +65,8 @@ window_title = "Open a File"
 mode = 0
 access = 2
 filters = PoolStringArray( "*.pck" )
-current_dir = "/Programy/Godot/Projects/GdLauncher"
-current_path = "/Programy/Godot/Projects/GdLauncher/"
+current_dir = "/run/media/wolfyxon/SZYMON/Programy/Godot/Projects/GdLauncher"
+current_path = "/run/media/wolfyxon/SZYMON/Programy/Godot/Projects/GdLauncher/"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -170,6 +167,12 @@ mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 3.0
+margin_top = 50.0
+margin_right = 334.0
+margin_bottom = 599.0
 
 [connection signal="file_selected" from="pckSelect/FileDialog" to="." method="_on_FileDialog_file_selected"]
 [connection signal="pressed" from="pckSelect/btn_browse" to="." method="_on_btn_browse_pressed"]

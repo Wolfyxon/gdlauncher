@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://GDLAUNCHER_FILES/fonts/arial.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://GDLAUNCHER_FILES/scrips/sceneLoader.gd" type="Script" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.0941176, 0.0901961, 0.207843, 1 )
@@ -13,6 +14,10 @@ border_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 45
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 46
 font_data = ExtResource( 1 )
 
 [node name="sceneLoader" type="Node"]
@@ -30,27 +35,20 @@ __meta__ = {
 margin_right = 1024.0
 margin_bottom = 52.0
 custom_styles/panel = SubResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="mainTxt" type="Label" parent="upPanel"]
 margin_right = 1026.0
 margin_bottom = 22.0
 custom_fonts/font = SubResource( 2 )
-text = "Almost there..."
+text = "Almost there!"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="FileDialog" type="FileDialog" parent="."]
-visible = true
 margin_left = 8.0
 margin_top = 78.0
 margin_right = 1015.0
 margin_bottom = 598.0
-window_title = "Select scene"
+window_title = "Open a File"
 mode = 0
 filters = PoolStringArray( "*.tscn,*.res" )
 show_hidden_files = true
@@ -58,5 +56,58 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="appInfo" type="Control" parent="."]
+margin_left = 489.0
+margin_top = 120.0
+margin_right = 529.0
+margin_bottom = 160.0
+
+[node name="name" type="Label" parent="appInfo"]
+margin_left = -485.0
+margin_top = 83.0
+margin_right = 534.0
+margin_bottom = 135.0
+custom_fonts/font = SubResource( 3 )
+text = "Error getting name"
+align = 1
+
+[node name="icon" type="TextureRect" parent="appInfo"]
+margin_left = -44.0
+margin_top = -31.0
+margin_right = 81.0
+margin_bottom = 90.0
+texture = ExtResource( 3 )
+expand = true
+
+[node name="Label" type="Label" parent="appInfo"]
+margin_left = -48.0
+margin_top = -56.0
+margin_right = 78.0
+margin_bottom = -42.0
+text = "Detected game info:"
+
+[node name="sceneChooser" type="Panel" parent="."]
+margin_left = -12.0
+margin_top = 296.0
+margin_right = 1039.0
+margin_bottom = 403.0
+
+[node name="btn_scene_default" type="Button" parent="sceneChooser"]
+self_modulate = Color( 0.027451, 1, 0.0431373, 1 )
+margin_left = 396.0
+margin_top = 10.0
+margin_right = 641.0
+margin_bottom = 52.0
+text = "Launch the game from default scene"
+
+[node name="btn_scene_choose" type="Button" parent="sceneChooser"]
+margin_left = 405.0
+margin_top = 57.0
+margin_right = 636.0
+margin_bottom = 85.0
+text = "Select a scene"
+
 [connection signal="confirmed" from="FileDialog" to="." method="_on_FileDialog_confirmed"]
 [connection signal="popup_hide" from="FileDialog" to="." method="_on_FileDialog_popup_hide"]
+[connection signal="pressed" from="sceneChooser/btn_scene_default" to="." method="_on_btn_scene_default_pressed"]
+[connection signal="pressed" from="sceneChooser/btn_scene_choose" to="." method="_on_btn_scene_choose_pressed"]
